@@ -9,3 +9,11 @@ class Meal:
         self.proteins = proteins
         self.calories = calories
 
+    def __str__(self):
+        return f'Name: {self.name}\n' \
+               f'Picture: {self.picture}\n' \
+               f'Carbs: {self.carbs}\n' \
+               f'Proteins: {self.proteins}\n' \
+               f'Calories: {self.calories}\n' \
+               f'Used ingredients: {self.list_of_present_ingredients}\n' \
+               f'Missing ingredients: {self.list_of_missing_ingredients}\n'

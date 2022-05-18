@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# venv
+/venv
+
 # C extensions
 *.so
 
@@ -207,3 +210,4 @@ fabric.properties
 /.idea/spotOn.iml
 /.idea/vcs.xml
 /.idea/dataSources.xml
+/src/main/utils/sercrets.py

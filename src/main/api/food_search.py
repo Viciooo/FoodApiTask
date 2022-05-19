@@ -25,7 +25,7 @@ def build_ingredients_list(ingredients: List[dict]):
 def find_food(included_ingredients: List, excluded_ingredients: List):
     results_of_db_search: List[Meal] = try_fetch_from_db(included_ingredients, excluded_ingredients)
     if len(results_of_db_search) > 0:
-        return results_of_db_search, False
+        return results_of_db_search
     URL: string = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=' + API_KEY
     headers: dict = {'Content-Type': 'application/json'}
     params: dict = {'addRecipeNutrition': True, 'fillIngredients': True,
@@ -51,13 +51,12 @@ def find_food(included_ingredients: List, excluded_ingredients: List):
                          'unit': meal['nutrition']['nutrients'][0]['unit']})
         meal_list.append(new_meal)
         insert_meal(new_meal, included_ingredients, excluded_ingredients)
-    return meal_list, True
+    return meal_list
 
 
 if __name__ == "__main__":
     included = ['tomatoes', 'eggs', 'pasta']
     excluded = ['plums']
-    meals, used_api = find_food(included, excluded)
-    print(used_api)
+    meals= find_food(included, excluded)
     for meal in meals:
         print(meal)

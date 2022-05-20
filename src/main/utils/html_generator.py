@@ -1,8 +1,16 @@
 import string
+from enum import Enum
 from typing import List
 from src.main.classes.meal import Meal
+from src.main.utils.meal_suggesting import get_names_of_best_and_worst_meals
 from src.main.utils.normalizer import prepare_html_name
 from src.main.utils.translation import translate_to_polish
+
+
+class MealTier(Enum):
+    BEST = ('best_meal', ', the best ratio of proteins to carbs')
+    REGULAR = ('regular_meal', '')
+    WORST = ('worst_meal', ', the worst ratio of proteins to carbs')
 
 
 class HTML_builder:
@@ -10,8 +18,15 @@ class HTML_builder:
     def build(cls, meals: List[Meal]):
         html_page: string = ''
         html_page += cls.__gen_html_head()
+        best_meal_name, worst_meal_name = get_names_of_best_and_worst_meals(meals)
         for meal in meals:
-            html_page += cls.__gen_html_header(meal.name)
+            if meal.name == best_meal_name:
+                html_page += cls.__gen_html_header(meal.name, MealTier.BEST.value)
+            elif meal.name == worst_meal_name:
+                html_page += cls.__gen_html_header(meal.name, MealTier.WORST.value)
+            else:
+                html_page += cls.__gen_html_header(meal.name, MealTier.REGULAR.value)
+
             html_page += cls.__gen_table_with_meal(meal)
             html_page += cls.__gen_table_with_ingredients(meal.list_of_missing_ingredients,
                                                           meal.list_of_present_ingredients)
@@ -31,6 +46,20 @@ class HTML_builder:
         border-collapse: collapse;
         padding: 1rem;
         font-size: 1.5rem;
+        }
+        
+        .best_meal{
+            color: green;
+            font-weight: bald;
+        }
+        
+        .regular_meal{
+            color: grey;
+        }
+        
+        .worst_meal{
+            color: red;
+            font-weight: bald;
         }
         </style>
         </head>
@@ -102,9 +131,9 @@ class HTML_builder:
         """
 
     @classmethod
-    def __gen_html_header(cls, text: string):
+    def __gen_html_header(cls, text: string, meal_tier: MealTier):
         return f"""
-        <h1>{text}</h1>
+        <h1 class={meal_tier[0]}>{text}{meal_tier[1]}</h1>
         """
 
 

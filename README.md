@@ -1,4 +1,4 @@
-# SpotOn recruitment task
+# Recruitment task
 
 As a young entrepreneur you want to create a new startup in food and health space.
 

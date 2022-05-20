@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import List
 
 
@@ -13,7 +14,7 @@ def normalize_list(list_to_normalize):
 
 
 def prepare_html_name(included_ingredients: List):
-    missing_ingredients = normalize_list(included_ingredients)
+    included_ingredients = normalize_list(included_ingredients)
 
     if len(included_ingredients) > 0:
         result = included_ingredients[0]
@@ -23,4 +24,7 @@ def prepare_html_name(included_ingredients: List):
         result = 'no_ingredients'
 
     result += '.html'
-    return result
+    dir_path = str(Path(__file__).parent.parent.parent.parent.resolve()) + r'\docs\examples'+'\\'
+
+    return dir_path+result
+

@@ -17,3 +17,12 @@ class Meal:
                f'Calories: {self.calories}\n' \
                f'Used ingredients: {self.list_of_present_ingredients}\n' \
                f'Missing ingredients: {self.list_of_missing_ingredients}\n'
+
+    def __eq__(self, other):
+        return self.name == other.name and \
+               self.picture == other.picture and \
+               self.carbs == other.carbs and \
+               self.proteins == other.proteins and \
+               self.calories == other.calories and \
+               self.list_of_present_ingredients == other.list_of_present_ingredients and \
+               self.list_of_missing_ingredients == other.list_of_missing_ingredients
